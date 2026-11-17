@@ -108,6 +108,11 @@ internal sealed class HidppChannel : IDisposable
             {
                 throw new HidppException(buf[5]);
             }
+
+            if (buf[2] == 0x8F && buf[3] == featureIndex && buf[4] == functionAndSwId)
+            {
+                return null; // HID++ 1.0 오류 (수신기: 해당 슬롯에 장치 없음/꺼짐 등)
+            }
         }
     }
 
